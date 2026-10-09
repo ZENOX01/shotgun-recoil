@@ -4,12 +4,18 @@
 
 ![Godot Engine](https://img.shields.io/badge/Godot-4.7_Mono-478cbf?style=for-the-badge&logo=godotengine&logoColor=white)
 ![C#](https://img.shields.io/badge/C%23-.NET_8.0-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
-![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue?style=for-the-badge)
+[![Latest Release](https://img.shields.io/github/v/release/ZENOX01/shotgun-recoil?style=for-the-badge&color=blueviolet)](https://github.com/ZENOX01/shotgun-recoil/releases/latest)
 ![License](https://img.shields.io/badge/License-MIT-orange?style=for-the-badge)
 
 **A fast-paced 2D retro physics platformer where your only propulsion is the violent kickback of a 12-gauge shotgun.**
 
 *Blast to fly. Aim to survive.*
+
+<p align="center">
+  <a href="https://github.com/ZENOX01/shotgun-recoil/releases/latest">
+    <img src="https://img.shields.io/badge/⬇️_Download_Playable_Game-v1.0.0_(Win_&_Linux)-success?style=for-the-badge" alt="Download Game" />
+  </a>
+</p>
 
 </div>
 
