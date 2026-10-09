@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://x2naj4h32mxi"]
+
+[ext_resource type="Script" uid="uid://bp7q7gganiqqo" path="res://scripts/Goal.cs" id="1_goal"]
+[ext_resource type="Script" uid="uid://bagiqujjxf3xf" path="res://scripts/MenuButton.cs" id="2_btn"]
+[ext_resource type="Theme" uid="uid://dkn7h0yev4w68" path="res://Assets/ui_theme.tres" id="3_theme"]
+[ext_resource type="FontFile" uid="uid://c3oooka6coa5" path="res://Assets/fonts/PressStart2P.ttf" id="4_font"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_goal"]
+size = Vector2(24, 32)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pole"]
+size = Vector3(3, 32, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_flag"]
+size = Vector3(14, 12, 1)
+
+[node name="Goal" type="Area2D"]
+script = ExtResource("1_goal")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_goal")
+
+[node name="Pole" type="MeshInstance2D" parent="."]
+modulate = Color(0.85, 0.75, 0.35, 1)
+position = Vector2(-6, -16)
+mesh = SubResource("BoxMesh_pole")
+
+[node name="Flag" type="MeshInstance2D" parent="."]
+modulate = Color(0.2, 0.85, 0.4, 1)
+position = Vector2(1, -22)
+rotation = 1.5707963
+mesh = SubResource("PrismMesh_flag")
+
+[node name="WinUI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="WinUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_theme")
+
+[node name="Panel" type="ColorRect" parent="WinUI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.04, 0.14, 0.75)
+
+[node name="CenterBox" type="VBoxContainer" parent="WinUI/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -140.0
+offset_right = 260.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Title" type="Label" parent="WinUI/Control/CenterBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.75, 0.14, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 26
+text = "★ LEVEL CLEARED! ★"
+horizontal_alignment = 1
+
+[node name="SubTitle" type="Label" parent="WinUI/Control/CenterBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.43, 0.91, 0.72, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 12
+text = "SHOTGUN RECOIL MASTERED!"
+horizontal_alignment = 1
+
+[node name="VBoxButtons" type="VBoxContainer" parent="WinUI/Control/CenterBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="NextLevelButton" type="Button" parent="WinUI/Control/CenterBox/VBoxButtons"]
+custom_minimum_size = Vector2(260, 48)
+layout_mode = 2
+text = "NEXT LEVEL"
+script = ExtResource("2_btn")
+PrefixOnHover = "► "
+
+[node name="PlayAgainButton" type="Button" parent="WinUI/Control/CenterBox/VBoxButtons"]
+custom_minimum_size = Vector2(260, 48)
+layout_mode = 2
+text = "RETRY LEVEL"
+script = ExtResource("2_btn")
+PrefixOnHover = "► "
+
+[node name="MenuButton" type="Button" parent="WinUI/Control/CenterBox/VBoxButtons"]
+custom_minimum_size = Vector2(260, 48)
+layout_mode = 2
+text = "MAIN MENU"
+script = ExtResource("2_btn")
+PrefixOnHover = "► "

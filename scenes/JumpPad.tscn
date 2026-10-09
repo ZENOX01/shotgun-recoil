@@ -1,0 +1,49 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/JumpPad.cs" id="1_pad"]
+[ext_resource type="Texture2D" path="res://Assets/jump_pad.png" id="2_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
+size = Vector2(24, 8)
+
+[sub_resource type="Gradient" id="Gradient_sparks"]
+offsets = PackedFloat32Array(0, 0.6, 1)
+colors = PackedColorArray(0.98, 0.85, 0.2, 1, 0.22, 0.74, 0.97, 0.85, 0.1, 0.3, 0.6, 0)
+
+[sub_resource type="Curve" id="Curve_sparks"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.6, 0.0, 0, 0]
+point_count = 2
+
+[node name="JumpPad" type="Area2D" node_paths=PackedStringArray("PadSprite", "SparkParticles")]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_pad")
+PadSprite = NodePath("PadSprite")
+SparkParticles = NodePath("SparkParticles")
+
+[node name="PadSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+offset = Vector2(0, -10)
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="SparkParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, -10)
+emitting = false
+amount = 14
+lifetime = 0.35
+one_shot = true
+explosiveness = 0.9
+direction = Vector2(0, -1)
+spread = 45.0
+gravity = Vector2(0, 180)
+initial_velocity_min = 60.0
+initial_velocity_max = 140.0
+scale_amount_min = 2.0
+scale_amount_max = 3.5
+scale_amount_curve = SubResource("Curve_sparks")
+color_ramp = SubResource("Gradient_sparks")

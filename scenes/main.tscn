@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://fvbve32f66ur"]
+
+[ext_resource type="PackedScene" uid="uid://xo6boxxhu88" path="res://scenes/spikes.tscn" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://df64g0o8cc5x5" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://bjnpn7ndp01mc" path="res://scripts/Main.cs" id="1_sugp2"]
+[ext_resource type="PackedScene" uid="uid://cb5k83lmd62w3" path="res://scenes/AmmoHUD.tscn" id="4_hud"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_o4lqu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6qfc4"]
+size = Vector2(22, 1)
+
+[node name="main" type="Node2D" unique_id=1380494704 node_paths=PackedStringArray("Bullets")]
+script = ExtResource("1_sugp2")
+Bullets = NodePath("Bullets")
+
+[node name="Spikes3" type="Node2D" parent="." unique_id=185403188]
+
+[node name="Spikes2" parent="Spikes3" unique_id=1016528708 instance=ExtResource("1_0wfyh")]
+position = Vector2(217, 138)
+
+[node name="Spikes" parent="Spikes3" unique_id=1535576678 instance=ExtResource("1_0wfyh")]
+position = Vector2(205, 138)
+
+[node name="Spikes3" parent="Spikes3" unique_id=1821634827 instance=ExtResource("1_0wfyh")]
+position = Vector2(244, 138)
+
+[node name="platforms" type="Node2D" parent="." unique_id=1368460176]
+
+[node name="foor" type="StaticBody2D" parent="platforms" unique_id=1773272785]
+position = Vector2(-30, 1)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="platforms/foor" unique_id=749952889]
+position = Vector2(191, 138)
+scale = Vector2(22.15, 1.01)
+mesh = SubResource("BoxMesh_o4lqu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platforms/foor" unique_id=2009487024]
+position = Vector2(191, 138)
+shape = SubResource("RectangleShape2D_6qfc4")
+
+[node name="foor2" type="StaticBody2D" parent="platforms" unique_id=1920720710]
+position = Vector2(7, 1)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="platforms/foor2" unique_id=1259975419]
+position = Vector2(205, 138)
+scale = Vector2(21.999989, 1)
+mesh = SubResource("BoxMesh_o4lqu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platforms/foor2" unique_id=638276126]
+position = Vector2(205, 138)
+shape = SubResource("RectangleShape2D_6qfc4")
+
+[node name="foor3" type="StaticBody2D" parent="platforms" unique_id=353877875]
+position = Vector2(39, 1)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="platforms/foor3" unique_id=814136511]
+position = Vector2(205, 138)
+scale = Vector2(21.999989, 1)
+mesh = SubResource("BoxMesh_o4lqu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platforms/foor3" unique_id=1690010236]
+position = Vector2(205, 138)
+shape = SubResource("RectangleShape2D_6qfc4")
+
+[node name="Player" parent="." unique_id=1854102163 instance=ExtResource("1_o5qli")]
+position = Vector2(161, 137)
+
+[node name="Bullets" type="Node2D" parent="." unique_id=1771031513]
+
+[node name="AmmoHUD" parent="." instance=ExtResource("4_hud")]
+
+[connection signal="ShootBullet" from="Player" to="." method="_on_player_shoot_bullet"]

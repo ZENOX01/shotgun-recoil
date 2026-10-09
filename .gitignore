@@ -1,0 +1,23 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# .NET / C# build artifacts
+**/bin/
+**/obj/
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.sln.DotSettings.user
+
+# IDE / Editor
+.vs/
+.idea/
+.vscode/
+
+# Editor backup & temporary files
+*.kra~
+*.tmp
+*.bak
+*~

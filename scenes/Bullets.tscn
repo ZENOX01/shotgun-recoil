@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://dcecedii8xu07"]
+
+[ext_resource type="Script" uid="uid://bwmcsjpxfp7v0" path="res://scripts/Bullets.cs" id="1_hhaqw"]
+[ext_resource type="Texture2D" uid="uid://5dvqlmi12cpx" path="res://Assets/bullet.png" id="2_bullet"]
+[ext_resource type="Texture2D" uid="uid://1vcux4y4f2ei" path="res://Assets/bullet_impact.png" id="3_impact"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bullet"]
+radius = 4.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imp0"]
+atlas = ExtResource("3_impact")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imp1"]
+atlas = ExtResource("3_impact")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imp2"]
+atlas = ExtResource("3_impact")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imp3"]
+atlas = ExtResource("3_impact")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imp4"]
+atlas = ExtResource("3_impact")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imp5"]
+atlas = ExtResource("3_impact")
+region = Rect2(120, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_impact"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imp0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imp1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imp4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imp5")
+}],
+"loop": false,
+"name": &"impact",
+"speed": 22.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_sparks"]
+offsets = PackedFloat32Array(0, 0.45, 0.85, 1)
+colors = PackedColorArray(1, 1, 0.9, 1, 1, 0.82, 0.25, 1, 0.95, 0.35, 0.1, 0.8, 0.5, 0.1, 0.1, 0)
+
+[node name="Bullets" type="Area2D" node_paths=PackedStringArray("BulletSprite", "ImpactSprite", "SparkParticles", "CollisionShape")]
+z_index = 5
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_hhaqw")
+BulletSprite = NodePath("BulletSprite")
+ImpactSprite = NodePath("ImpactSprite")
+SparkParticles = NodePath("SparkParticles")
+CollisionShape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bullet")
+
+[node name="BulletSprite" type="Sprite2D" parent="."]
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("2_bullet")
+
+[node name="ImpactSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_impact")
+animation = &"impact"
+
+[node name="SparkParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 14
+lifetime = 0.28
+one_shot = true
+explosiveness = 1.0
+spread = 55.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 90.0
+initial_velocity_max = 175.0
+scale_amount_min = 1.5
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_sparks")

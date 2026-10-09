@@ -1,0 +1,593 @@
+[gd_scene format=3 uid="uid://c6s7vhw4x5y2b"]
+
+[ext_resource type="Script" uid="uid://dhdryogymah5" path="res://scripts/MainMenu.cs" id="1_menu"]
+[ext_resource type="Script" uid="uid://cfkwo6765rhmy" path="res://scripts/MenuBackground.cs" id="2_bg"]
+[ext_resource type="Script" uid="uid://bagiqujjxf3xf" path="res://scripts/MenuButton.cs" id="3_btn"]
+[ext_resource type="Theme" uid="uid://dkn7h0yev4w68" path="res://Assets/ui_theme.tres" id="4_theme"]
+[ext_resource type="FontFile" uid="uid://c3oooka6coa5" path="res://Assets/fonts/PressStart2P.ttf" id="5_font_press"]
+[ext_resource type="FontFile" uid="uid://dfkd4yiwutkcf" path="res://Assets/fonts/Silkscreen-Regular.ttf" id="7_font_silk_r"]
+[ext_resource type="Texture2D" uid="uid://53bbci8mgy0m" path="res://Assets/tilemap.png" id="8_tilemap"]
+[ext_resource type="Texture2D" uid="uid://dyhvroahixql5" path="res://Assets/idle.png" id="9_idle"]
+[ext_resource type="Texture2D" uid="uid://j7578ovvdpve" path="res://Assets/shotgun.png" id="10_shotgun"]
+[ext_resource type="Texture2D" uid="uid://cp7istjbp4doc" path="res://Assets/spikes.png" id="11_spk"]
+[ext_resource type="Texture2D" uid="uid://fti2domuy284" path="res://Assets/hud_shell_full.png" id="12_shell"]
+[ext_resource type="Texture2D" uid="uid://1vcux4y4f2ei" path="res://Assets/bullet_impact.png" id="13_flash"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle1"]
+atlas = ExtResource("9_idle")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle2"]
+atlas = ExtResource("9_idle")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle3"]
+atlas = ExtResource("9_idle")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle4"]
+atlas = ExtResource("9_idle")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_player"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle4")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[sub_resource type="Curve" id="Curve_muzzle"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.8, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_muzzle"]
+offsets = PackedFloat32Array(0, 0.7, 1)
+colors = PackedColorArray(1, 0.95, 0.4, 1, 0.98, 0.45, 0.1, 0.9, 0.5, 0.1, 0.1, 0)
+
+[sub_resource type="Gradient" id="Gradient_spores"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.98, 0.82, 0.25, 0, 0.43, 0.91, 0.72, 0.85, 0.98, 0.45, 0.09, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.1, 0.06, 0.16, 0.97)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.96, 0.62, 0.04, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.85)
+shadow_size = 14
+shadow_offset = Vector2(0, 6)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_divider"]
+color = Color(0.96, 0.62, 0.04, 0.6)
+thickness = 2
+
+[node name="MainMenu" type="Control" unique_id=814638086 node_paths=PackedStringArray("PlayButton", "LevelSelectButton", "HowToPlayButton", "QuitButton", "LevelSelectModal", "CloseLevelSelectButton", "Level1Btn", "Level2Btn", "Level3Btn", "Level4Btn", "Level5Btn", "HowToPlayModal", "CloseModalButton", "MadeByLabel", "TitleContainer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_theme")
+script = ExtResource("1_menu")
+PlayButton = NodePath("UI/VBoxButtons/PlayButton")
+LevelSelectButton = NodePath("UI/VBoxButtons/LevelSelectButton")
+HowToPlayButton = NodePath("")
+QuitButton = NodePath("UI/VBoxButtons/QuitButton")
+LevelSelectModal = NodePath("LevelSelectModal")
+CloseLevelSelectButton = NodePath("LevelSelectModal/Panel/CloseButton")
+Level1Btn = NodePath("LevelSelectModal/Panel/VBoxLevels/Level1Btn")
+Level2Btn = NodePath("LevelSelectModal/Panel/VBoxLevels/Level2Btn")
+Level3Btn = NodePath("LevelSelectModal/Panel/VBoxLevels/Level3Btn")
+Level4Btn = NodePath("LevelSelectModal/Panel/VBoxLevels/Level4Btn")
+Level5Btn = NodePath("LevelSelectModal/Panel/VBoxLevels/Level5Btn")
+HowToPlayModal = NodePath("")
+CloseModalButton = NodePath("")
+MadeByLabel = NodePath("UI/MadeByLabel")
+TitleContainer = NodePath("UI/TitleContainer")
+
+[node name="Background" type="Control" parent="." unique_id=1335843054 node_paths=PackedStringArray("PlayerCharacter", "ShotgunPivot", "ShotgunSprite", "PlayerSprite", "MuzzleParticles", "MuzzleFlash")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_bg")
+PlayerCharacter = NodePath("Diorama/PlayerLedge/Character")
+ShotgunPivot = NodePath("Diorama/PlayerLedge/Character/ShotgunPivot")
+ShotgunSprite = NodePath("Diorama/PlayerLedge/Character/ShotgunPivot/ShotgunSprite")
+PlayerSprite = NodePath("Diorama/PlayerLedge/Character/AnimatedSprite2D")
+MuzzleParticles = NodePath("Diorama/PlayerLedge/Character/ShotgunPivot/MuzzleParticles")
+MuzzleFlash = NodePath("Diorama/PlayerLedge/Character/ShotgunPivot/MuzzleFlash")
+
+[node name="SkyBackdrop" type="ColorRect" parent="Background" unique_id=1967775015]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.1, 0.06, 0.16, 1)
+
+[node name="AmbientGlow" type="ColorRect" parent="Background" unique_id=1184404369]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.18, 0.12, 0.28, 0.6)
+
+[node name="Diorama" type="Node2D" parent="Background" unique_id=418999618]
+
+[node name="TreesBg" type="Node2D" parent="Background/Diorama" unique_id=953976395]
+modulate = Color(0.55, 0.45, 0.65, 0.75)
+position = Vector2(620, 180)
+scale = Vector2(3, 3)
+
+[node name="Tree1" type="Sprite2D" parent="Background/Diorama/TreesBg" unique_id=696668153]
+position = Vector2(40, -10)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(16, 176, 112, 64)
+
+[node name="Tree2" type="Sprite2D" parent="Background/Diorama/TreesBg" unique_id=331684107]
+position = Vector2(110, 10)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(16, 176, 112, 64)
+
+[node name="Pillar1" type="Sprite2D" parent="Background/Diorama/TreesBg" unique_id=2097695048]
+position = Vector2(80, 50)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(160, 128, 48, 48)
+
+[node name="VinesArch" type="Node2D" parent="Background/Diorama" unique_id=125957948]
+position = Vector2(850, 0)
+scale = Vector2(3, 3)
+
+[node name="Vine1" type="Sprite2D" parent="Background/Diorama/VinesArch" unique_id=1801865276]
+position = Vector2(-20, 30)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(32, 176, 16, 48)
+
+[node name="Vine2" type="Sprite2D" parent="Background/Diorama/VinesArch" unique_id=25788812]
+position = Vector2(30, 20)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(48, 176, 16, 48)
+
+[node name="Vine3" type="Sprite2D" parent="Background/Diorama/VinesArch" unique_id=508297749]
+position = Vector2(60, 35)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(64, 176, 16, 48)
+
+[node name="ChasmPit" type="Node2D" parent="Background/Diorama" unique_id=1790218228]
+position = Vector2(500, 560)
+scale = Vector2(3, 3)
+
+[node name="Spike1" type="Sprite2D" parent="Background/Diorama/ChasmPit" unique_id=1641628562]
+texture = ExtResource("11_spk")
+
+[node name="Spike2" type="Sprite2D" parent="Background/Diorama/ChasmPit" unique_id=2044015313]
+position = Vector2(16, 0)
+texture = ExtResource("11_spk")
+
+[node name="Spike3" type="Sprite2D" parent="Background/Diorama/ChasmPit" unique_id=1839113923]
+position = Vector2(32, 0)
+texture = ExtResource("11_spk")
+
+[node name="Spike4" type="Sprite2D" parent="Background/Diorama/ChasmPit" unique_id=941976126]
+position = Vector2(48, 0)
+texture = ExtResource("11_spk")
+
+[node name="Spike5" type="Sprite2D" parent="Background/Diorama/ChasmPit" unique_id=1799461163]
+position = Vector2(64, 0)
+texture = ExtResource("11_spk")
+
+[node name="Spike6" type="Sprite2D" parent="Background/Diorama/ChasmPit" unique_id=272379933]
+position = Vector2(80, 0)
+texture = ExtResource("11_spk")
+
+[node name="Spike7" type="Sprite2D" parent="Background/Diorama/ChasmPit" unique_id=175616387]
+position = Vector2(96, 0)
+texture = ExtResource("11_spk")
+
+[node name="Spike8" type="Sprite2D" parent="Background/Diorama/ChasmPit" unique_id=587985128]
+position = Vector2(112, 0)
+texture = ExtResource("11_spk")
+
+[node name="MistFog" type="ColorRect" parent="Background/Diorama/ChasmPit" unique_id=1972083968]
+offset_left = -20.0
+offset_top = -24.0
+offset_right = 160.0
+offset_bottom = 20.0
+color = Color(0.14, 0.08, 0.22, 0.65)
+
+[node name="PlayerLedge" type="Node2D" parent="Background/Diorama" unique_id=1189741786]
+position = Vector2(870, 370)
+
+[node name="FortressBase" type="Node2D" parent="Background/Diorama/PlayerLedge" unique_id=1544846130]
+scale = Vector2(3, 3)
+
+[node name="BlockLeft" type="Sprite2D" parent="Background/Diorama/PlayerLedge/FortressBase" unique_id=1252830723]
+position = Vector2(-48, 24)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(80, 64, 16, 16)
+
+[node name="BlockMid1" type="Sprite2D" parent="Background/Diorama/PlayerLedge/FortressBase" unique_id=1137322950]
+position = Vector2(-32, 24)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(96, 64, 16, 16)
+
+[node name="BlockMid2" type="Sprite2D" parent="Background/Diorama/PlayerLedge/FortressBase" unique_id=220759166]
+position = Vector2(-16, 24)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(112, 64, 16, 16)
+
+[node name="BlockMid3" type="Sprite2D" parent="Background/Diorama/PlayerLedge/FortressBase" unique_id=526407214]
+position = Vector2(0, 24)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(96, 64, 16, 16)
+
+[node name="BlockMid4" type="Sprite2D" parent="Background/Diorama/PlayerLedge/FortressBase" unique_id=1744937934]
+position = Vector2(16, 24)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(112, 64, 16, 16)
+
+[node name="BlockRight" type="Sprite2D" parent="Background/Diorama/PlayerLedge/FortressBase" unique_id=1838292953]
+position = Vector2(32, 24)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(144, 64, 16, 16)
+
+[node name="DirtUnder1" type="Sprite2D" parent="Background/Diorama/PlayerLedge/FortressBase" unique_id=766858089]
+position = Vector2(-32, 40)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(96, 80, 16, 16)
+
+[node name="DirtUnder2" type="Sprite2D" parent="Background/Diorama/PlayerLedge/FortressBase" unique_id=403106850]
+position = Vector2(0, 40)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(112, 80, 16, 16)
+
+[node name="DirtUnder3" type="Sprite2D" parent="Background/Diorama/PlayerLedge/FortressBase" unique_id=1294196187]
+position = Vector2(16, 40)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(96, 80, 16, 16)
+
+[node name="Mushroom" type="Sprite2D" parent="Background/Diorama/PlayerLedge/FortressBase" unique_id=424482666]
+position = Vector2(26, 12)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(80, 128, 16, 16)
+
+[node name="Bush" type="Sprite2D" parent="Background/Diorama/PlayerLedge/FortressBase" unique_id=542412819]
+position = Vector2(-42, 12)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(32, 176, 16, 16)
+
+[node name="RuinPillar" type="Sprite2D" parent="Background/Diorama/PlayerLedge/FortressBase" unique_id=376881881]
+position = Vector2(36, -8)
+texture = ExtResource("8_tilemap")
+region_enabled = true
+region_rect = Rect2(176, 128, 16, 32)
+
+[node name="ShellCasing" type="Sprite2D" parent="Background/Diorama/PlayerLedge/FortressBase" unique_id=1045680354]
+position = Vector2(-12, 14)
+rotation = 1.3
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_shell")
+
+[node name="Character" type="Node2D" parent="Background/Diorama/PlayerLedge" unique_id=1672970401]
+position = Vector2(-20, 12)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Background/Diorama/PlayerLedge/Character" unique_id=1859465204]
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_player")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="ShotgunPivot" type="Node2D" parent="Background/Diorama/PlayerLedge/Character" unique_id=1250560251]
+position = Vector2(6, 4)
+
+[node name="ShotgunSprite" type="Sprite2D" parent="Background/Diorama/PlayerLedge/Character/ShotgunPivot" unique_id=1630446083]
+position = Vector2(18, 0)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("10_shotgun")
+flip_h = true
+
+[node name="MuzzleFlash" type="Sprite2D" parent="Background/Diorama/PlayerLedge/Character/ShotgunPivot" unique_id=1202742602]
+visible = false
+position = Vector2(36, 0)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("13_flash")
+region_enabled = true
+region_rect = Rect2(0, 0, 24, 24)
+
+[node name="MuzzleParticles" type="CPUParticles2D" parent="Background/Diorama/PlayerLedge/Character/ShotgunPivot" unique_id=297653395]
+position = Vector2(32, 0)
+emitting = false
+amount = 16
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+spread = 35.0
+gravity = Vector2(0, 180)
+initial_velocity_min = 100.0
+initial_velocity_max = 220.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_muzzle")
+color_ramp = SubResource("Gradient_muzzle")
+
+[node name="AtmosphericSpores" type="CPUParticles2D" parent="Background" unique_id=291266688]
+position = Vector2(576, 324)
+amount = 26
+lifetime = 6.0
+preprocess = 3.0
+emission_shape = 3
+emission_rect_extents = Vector2(580, 320)
+direction = Vector2(-1, -0.4)
+spread = 30.0
+gravity = Vector2(0, -8)
+initial_velocity_min = 8.0
+initial_velocity_max = 24.0
+scale_amount_min = 2.0
+scale_amount_max = 3.5
+color_ramp = SubResource("Gradient_spores")
+
+[node name="UI" type="Control" parent="." unique_id=872355734]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TitleContainer" type="VBoxContainer" parent="UI" unique_id=622601325]
+layout_mode = 1
+offset_left = 64.0
+offset_top = 76.0
+offset_right = 640.0
+offset_bottom = 220.0
+theme_override_constants/separation = 12
+
+[node name="Title1" type="Label" parent="UI/TitleContainer" unique_id=1675952337]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.23, 1)
+theme_override_colors/font_shadow_color = Color(0.25, 0.08, 0.38, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_fonts/font = ExtResource("5_font_press")
+theme_override_font_sizes/font_size = 46
+text = "SHOTGUN"
+
+[node name="Title2" type="Label" parent="UI/TitleContainer" unique_id=443292135]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.45, 0.09, 1)
+theme_override_colors/font_shadow_color = Color(0.18, 0.04, 0.26, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_fonts/font = ExtResource("5_font_press")
+theme_override_font_sizes/font_size = 46
+text = "RECOIL"
+
+[node name="VBoxButtons" type="VBoxContainer" parent="UI" unique_id=1810496400]
+layout_mode = 1
+offset_left = 64.0
+offset_top = 260.0
+offset_right = 374.0
+offset_bottom = 530.0
+theme_override_constants/separation = 14
+
+[node name="PlayButton" type="Button" parent="UI/VBoxButtons" unique_id=34227348]
+custom_minimum_size = Vector2(310, 52)
+layout_mode = 2
+text = "PLAY CAMPAIGN"
+script = ExtResource("3_btn")
+
+[node name="LevelSelectButton" type="Button" parent="UI/VBoxButtons" unique_id=999004739]
+custom_minimum_size = Vector2(310, 52)
+layout_mode = 2
+text = "LEVEL SELECT"
+script = ExtResource("3_btn")
+
+[node name="QuitButton" type="Button" parent="UI/VBoxButtons" unique_id=965431703]
+custom_minimum_size = Vector2(310, 52)
+layout_mode = 2
+text = "QUIT"
+script = ExtResource("3_btn")
+
+[node name="MadeByLabel" type="Label" parent="UI" unique_id=601086455]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_top = -46.0
+offset_right = 380.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.98, 0.75, 0.14, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.85)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("5_font_press")
+theme_override_font_sizes/font_size = 12
+text = "★ MADE BY ZENO ★"
+vertical_alignment = 1
+
+[node name="HintLabel" type="Label" parent="UI" unique_id=885694491]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -440.0
+offset_top = -46.0
+offset_right = -36.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.68, 0.68, 0.8, 0.85)
+theme_override_fonts/font = ExtResource("7_font_silk_r")
+theme_override_font_sizes/font_size = 12
+text = "[CLICK BACKGROUND TO BLAST SHOTGUN]"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LevelSelectModal" type="Control" parent="." unique_id=2121003169]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="LevelSelectModal" unique_id=1654307617]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="Panel" type="Panel" parent="LevelSelectModal" unique_id=344177168]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.0
+offset_top = -240.0
+offset_right = 330.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="Header" type="Label" parent="LevelSelectModal/Panel" unique_id=682232402]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 18.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.98, 0.75, 0.14, 1)
+theme_override_fonts/font = ExtResource("5_font_press")
+theme_override_font_sizes/font_size = 18
+text = "★ SELECT MISSION ★"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="LevelSelectModal/Panel" unique_id=1788565128]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 32.0
+offset_top = 54.0
+offset_right = -32.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_divider")
+
+[node name="VBoxLevels" type="VBoxContainer" parent="LevelSelectModal/Panel" unique_id=807353787]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_top = 74.0
+offset_right = -36.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Level1Btn" type="Button" parent="LevelSelectModal/Panel/VBoxLevels" unique_id=329551461]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "LEVEL 1: THE CAVERN RUINS   ★☆☆☆☆"
+script = ExtResource("3_btn")
+
+[node name="Level2Btn" type="Button" parent="LevelSelectModal/Panel/VBoxLevels" unique_id=941630310]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "LEVEL 2: THE TIMBER CHASM   ★★☆☆☆"
+script = ExtResource("3_btn")
+
+[node name="Level3Btn" type="Button" parent="LevelSelectModal/Panel/VBoxLevels" unique_id=1054848692]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "LEVEL 3: CRUMBLING BASTION  ★★★☆☆"
+script = ExtResource("3_btn")
+
+[node name="Level4Btn" type="Button" parent="LevelSelectModal/Panel/VBoxLevels" unique_id=1192349322]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "LEVEL 4: THE SPIKE GAUNTLET ★★★★☆"
+script = ExtResource("3_btn")
+
+[node name="Level5Btn" type="Button" parent="LevelSelectModal/Panel/VBoxLevels" unique_id=1235624075]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "LEVEL 5: ASCENT OF GUNNER   ★★★★★"
+script = ExtResource("3_btn")
+
+[node name="CloseButton" type="Button" parent="LevelSelectModal/Panel" unique_id=1002859108]
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -62.0
+offset_right = 80.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "BACK"
+script = ExtResource("3_btn")
+PrefixOnHover = ""

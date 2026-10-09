@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://cb5k83lmd62w3"]
+
+[ext_resource type="Script" path="res://scripts/AmmoHUD.cs" id="1_hud"]
+[ext_resource type="Texture2D" uid="uid://fti2domuy284" path="res://Assets/hud_shell_full.png" id="2_shell_full"]
+[ext_resource type="FontFile" uid="uid://c3oooka6coa5" path="res://Assets/fonts/PressStart2P.ttf" id="3_font"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud"]
+bg_color = Color(0.09, 0.05, 0.15, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.47, 0.02, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 4
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_sep"]
+color = Color(0.85, 0.47, 0.02, 0.4)
+vertical = true
+
+[node name="AmmoHUDLayer" type="CanvasLayer"]
+layer = 10
+
+[node name="AmmoHUD" type="Control" parent="." node_paths=PackedStringArray("Shell1", "Shell2", "AmmoLabel", "ShellsContainer")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 168.0
+offset_bottom = 76.0
+mouse_filter = 2
+script = ExtResource("1_hud")
+Shell1 = NodePath("Panel/Margin/HBox/ShellsBox/Shell1")
+Shell2 = NodePath("Panel/Margin/HBox/ShellsBox/Shell2")
+AmmoLabel = NodePath("Panel/Margin/HBox/VBoxText/AmmoLabel")
+ShellsContainer = NodePath("Panel/Margin/HBox/ShellsBox")
+
+[node name="Panel" type="Panel" parent="AmmoHUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud")
+
+[node name="Margin" type="MarginContainer" parent="AmmoHUD/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="HBox" type="HBoxContainer" parent="AmmoHUD/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="VBoxText" type="VBoxContainer" parent="AmmoHUD/Panel/Margin/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Title" type="Label" parent="AmmoHUD/Panel/Margin/HBox/VBoxText"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.68, 0.65, 0.78, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 9
+text = "AMMO"
+
+[node name="AmmoLabel" type="Label" parent="AmmoHUD/Panel/Margin/HBox/VBoxText"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.75, 0.14, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 12
+text = "2/2"
+
+[node name="VSeparator" type="VSeparator" parent="AmmoHUD/Panel/Margin/HBox"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_sep")
+
+[node name="ShellsBox" type="HBoxContainer" parent="AmmoHUD/Panel/Margin/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Shell1" type="TextureRect" parent="AmmoHUD/Panel/Margin/HBox/ShellsBox"]
+custom_minimum_size = Vector2(18, 36)
+layout_mode = 2
+texture = ExtResource("2_shell_full")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Shell2" type="TextureRect" parent="AmmoHUD/Panel/Margin/HBox/ShellsBox"]
+custom_minimum_size = Vector2(18, 36)
+layout_mode = 2
+texture = ExtResource("2_shell_full")
+expand_mode = 1
+stretch_mode = 5
